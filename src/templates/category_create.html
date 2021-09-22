@@ -1,0 +1,9 @@
+<h1>Category create:</h1>
+<form method="POST">
+    {% csrf_token %}
+    <label for="">Category title:</label>
+    <input type="text" name="title" placeholder="category title">
+    <input type="number" name="quantity" placeholder="quantity">
+    <button type="submit">Submit</button>
+</form>
+<a href="/category_list">Back to the list</a>

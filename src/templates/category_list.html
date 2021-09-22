@@ -1,0 +1,9 @@
+<h1>Category list:</h1>
+<a href="/category_create">Create new category</a>
+<ul>
+{% for cate in object_list %}
+    <li><a href="/category/{{cate.pk}}">{{cate.title}}</a></li> 
+    <a href="category_update/{{cate.pk}}">Update</a>
+    <a href="category_delete/{{cate.pk}}">Delete</a>
+{% endfor %}
+</ul>

@@ -15,9 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blogs.views import Dashboard
+from blogs.views import Dashboard, category_create, category_list, category_update, category_delete, category_detail
+from tiemchung.views import dan_detail, dan_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Dashboard),
+    path('list', dan_list),
+    path('detail/<pk>', dan_detail),
+    path('category_create', category_create),
+    path('category_list', category_list),
+    path('category/<pk>', category_detail),
+    path('category_update/<pk>/', category_update),
+    path('category_delete/<pk>/', category_delete),
 ]

@@ -1,0 +1,9 @@
+<h1>List:</h1>
+<ul>
+    
+    {% for dan in object_list %}
+    <a href="/detail/{{dan.pk}}">
+        <li>{{ dan.cccd }} - {{ dan.ten }}</li>
+    </a>
+    {% endfor %}
+</ul>
