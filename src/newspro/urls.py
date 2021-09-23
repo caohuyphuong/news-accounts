@@ -16,13 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blogs.views import Dashboard, category_create, category_list, category_update, category_delete, category_detail
-from tiemchung.views import dan_detail, dan_list
+from tiemchung.views import dan_create, dan_delete, dan_detail, dan_list, dan_update
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Dashboard),
-    path('list', dan_list),
+    path('list/', dan_list),
+    path('create/', dan_create),
     path('detail/<pk>', dan_detail),
+    path('update/<pk>', dan_update),
+    path('delete/<pk>', dan_delete),
     path('category_create', category_create),
     path('category_list', category_list),
     path('category/<pk>', category_detail),

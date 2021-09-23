@@ -1,0 +1,8 @@
+<h1>Update:</h1>
+<form method="POST">{% csrf_token %}
+    <label for="">CCCD</label>
+    <input type="text" name="cccd" value="{{ object.cccd }}">
+    <label for="">Tên</label>
+    <input type="text" name="ten" value="{{ object.ten }}">
+    <button type="submit">Submit</button>
+</form>
