@@ -21,11 +21,12 @@ from tiemchung.views import dan_create, dan_delete, dan_detail, dan_list, dan_up
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Dashboard),
-    path('list/', dan_list),
-    path('create/', dan_create),
-    path('detail/<pk>', dan_detail),
-    path('update/<pk>', dan_update),
-    path('delete/<pk>', dan_delete),
+    path('list/', dan_list, name='dan-list'),
+    path('create/', dan_create, name='dan-create'),
+    path('detail/<pk>', dan_detail, name='dan-detail'),
+    path('update/<pk>', dan_update, name='dan-update'),
+    path('delete/<pk>', dan_delete, name='dan-delete'),
+
     path('category_create', category_create),
     path('category_list', category_list),
     path('category/<pk>', category_detail),

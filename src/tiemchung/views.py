@@ -18,7 +18,7 @@ def dan_create(request):
         cccd = request.POST.get('cccd')
         ten = request.POST.get('ten')
         dan = Dan.objects.create(cccd=cccd, ten=ten)
-        return redirect('/list')
+        return redirect('dan-list')
     return render(request, 'create.html', {})
 
 
@@ -28,11 +28,11 @@ def dan_update(request, pk):
         dan.cccd = request.POST.get('cccd')
         dan.ten = request.POST.get('ten')
         dan.save()
-        return redirect('/list')
+        return redirect('dan-list')
     return render(request, 'update.html', {'object': dan})
 
 
 def dan_delete(request, pk):
     dan = Dan.objects.get(pk=pk)
     dan.delete()
-    return redirect('/list')
+    return redirect('dan-list')
