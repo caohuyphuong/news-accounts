@@ -15,17 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls.conf import include
 from blogs.views import Dashboard, category_create, category_list, category_update, category_delete, category_detail
-from tiemchung.views import dan_create, dan_delete, dan_detail, dan_list, dan_update
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', Dashboard),
-    path('list/', dan_list, name='dan-list'),
-    path('create/', dan_create, name='dan-create'),
-    path('detail/<pk>', dan_detail, name='dan-detail'),
-    path('update/<pk>', dan_update, name='dan-update'),
-    path('delete/<pk>', dan_delete, name='dan-delete'),
+    path('admin/', admin.site.urls),
+    path('tiemchung/', include('tiemchung.urls', namespace='tiemchung')),
 
     path('category_create', category_create),
     path('category_list', category_list),

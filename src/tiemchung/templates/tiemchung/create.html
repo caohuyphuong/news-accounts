@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Dan create{% endblock title %}
+{% block content %}
 <h1>Create:</h1>
 <form method="POST">{% csrf_token %}
     <label for="">CCCD</label>
@@ -6,3 +9,7 @@
     <input type="text" name="ten">
     <button type="submit">Submit</button>
 </form>
+
+{% endblock content %}
+
+

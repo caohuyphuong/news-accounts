@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Dan Update{% endblock title %}
+{% block content %}
 <h1>Update:</h1>
 <form method="POST">{% csrf_token %}
     <label for="">CCCD</label>
@@ -6,3 +9,6 @@
     <input type="text" name="ten" value="{{ object.ten }}">
     <button type="submit">Submit</button>
 </form>
+{% endblock content %}
+
+

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Dan list{% endblock title %}
+{% block content %}
+<h1>List:</h1>
+<a href="{% url 'tiemchung:dan-create' %}">Create new</a>
+<ul>
+    {% for dan in object_list %}
+    <a href="{% url 'tiemchung:dan-detail' dan.pk %}">
+        <li>{{ dan.cccd }} - {{ dan.ten }}</li>
+    </a>
+    <a href="{% url 'tiemchung:dan-update' dan.pk %}">Update</a>
+    <a href="{% url 'tiemchung:dan-delete' dan.pk %}">Delete</a>
+    {% endfor %}
+</ul>
+{% endblock content %}
