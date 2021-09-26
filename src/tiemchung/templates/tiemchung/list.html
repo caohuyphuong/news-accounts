@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Dan list{% endblock title %}
 {% block content %}
-<h1>List:</h1>
-<a href="{% url 'tiemchung:dan-create' %}">Create new</a>
-<ul>
-    {% for dan in object_list %}
-    <a href="{% url 'tiemchung:dan-detail' dan.pk %}">
-        <li>{{ dan.cccd }} - {{ dan.ten }}</li>
-    </a>
-    <a href="{% url 'tiemchung:dan-update' dan.pk %}">Update</a>
-    <a href="{% url 'tiemchung:dan-delete' dan.pk %}">Delete</a>
-    {% endfor %}
-</ul>
+<div class="row">
+{% for dan in object_list %}
+    <div class="col col-3 mb-3">
+        <div class="card" style="">
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'tiemchung:dan-detail' dan.pk %}">{{ dan.ten }}</a></h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ dan.cccd }}</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="{% url 'tiemchung:dan-update' dan.pk %}" class="card-link">Update</a>
+            <a href="{% url 'tiemchung:dan-delete' dan.pk %}" class="card-link">Delete</a>
+        </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
 {% endblock content %}

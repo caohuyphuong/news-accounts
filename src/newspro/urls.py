@@ -20,7 +20,7 @@ from blogs.views import Dashboard, category_create, category_list, category_upda
 
 
 urlpatterns = [
-    path('', Dashboard),
+    path('', Dashboard, name='dashboard'),
     path('admin/', admin.site.urls),
     path('tiemchung/', include('tiemchung.urls', namespace='tiemchung')),
 

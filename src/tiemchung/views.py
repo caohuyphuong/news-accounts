@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.views import View
 from .models import Dan, Tiem
 # CRUD = Create, Read, Update, Delete
 
