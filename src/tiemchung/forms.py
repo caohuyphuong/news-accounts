@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import fields
+from .models import Dan
 
 
 class DanForm(forms.Form):
@@ -7,3 +9,9 @@ class DanForm(forms.Form):
         'placeholder': 'Căn cước công dân'
     }))
     ten = forms.CharField(label='Tên', max_length=50)
+
+
+class DanModelForm(forms.ModelForm):
+    class Meta:
+        model = Dan
+        fields = ['cccd', 'ten']

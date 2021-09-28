@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import View
 from .models import Dan, Tiem
-from .forms import DanForm
+from .forms import DanForm, DanModelForm
 # CRUD = Create, Read, Update, Delete
 
 
@@ -16,16 +16,18 @@ def dan_detail(request, pk):
 
 
 def dan_create(request):
-    form = DanForm(request.POST or None)
+    # form = DanForm(request.POST or None)
     if request.method == "POST":
+        form = DanModelForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
-            cccd = form.cleaned_data['cccd']
-            ten = form.cleaned_data['ten']
-            # cccd = request.POST.get('cccd')
-            # ten = request.POST.get('ten')
-            dan = Dan.objects.create(cccd=cccd, ten=ten)
+            # print(form.cleaned_data)
+            # cccd = form.cleaned_data['cccd']
+            # ten = form.cleaned_data['ten']
+            # dan = Dan.objects.create(cccd=cccd, ten=ten)
+            form.save()
             return redirect('tiemchung:dan-list')
+    else:
+        form = DanModelForm()
     return render(request, 'tiemchung/create.html', {'form': form})
 
 
