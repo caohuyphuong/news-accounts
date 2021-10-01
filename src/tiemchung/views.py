@@ -41,6 +41,29 @@ def dan_update(request, pk):
     return render(request, 'tiemchung/update.html', {'object': dan})
 
 
+def dan_update_form(request, pk):
+    dan = Dan.objects.get(pk=pk)
+    form = DanForm(request.POST or None, initial={
+        'cccd': dan.cccd,
+        'ten': dan.ten
+    })
+    if form.is_valid():
+        dan.cccd = form.cleaned_data.get('cccd')
+        dan.ten = form.cleaned_data.get('ten')
+        dan.save()
+        return redirect('tiemchung:dan-list')
+    return render(request, 'tiemchung/update.html', {'form': form})
+
+
+def dan_update_model_form(request, pk):
+    dan = Dan.objects.get(pk=pk)
+    form = DanModelForm(request.POST or None, instance=dan)
+    if form.is_valid():
+        form.save()
+        return redirect('tiemchung:dan-list')
+    return render(request, 'tiemchung/update.html', {'form': form})
+
+
 def dan_delete(request, pk):
     dan = Dan.objects.get(pk=pk)
     dan.delete()
