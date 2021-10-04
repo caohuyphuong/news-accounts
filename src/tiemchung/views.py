@@ -1,8 +1,19 @@
 from django.shortcuts import redirect, render
 from django.views import View
+from django.views import generic
 from .models import Dan, Tiem
 from .forms import DanForm, DanModelForm
+
 # CRUD = Create, Read, Update, Delete
+
+
+class DashboardView(generic.TemplateView):
+    template_name = 'dashboard.html'
+
+
+class DanListView(generic.ListView):
+    template_name = 'tiemchung/list.html'
+    queryset = Dan.objects.all()
 
 
 def dan_list(request):

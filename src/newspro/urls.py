@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 from blogs.views import Dashboard, category_create, category_list, category_update, category_delete, category_detail
+from tiemchung.views import DashboardView
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    path('', Dashboard, name='dashboard'),
+    path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'),
     path('admin/', admin.site.urls),
     path('tiemchung/', include('tiemchung.urls', namespace='tiemchung')),
 

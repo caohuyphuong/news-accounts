@@ -1,10 +1,19 @@
 from django.urls import path
-from tiemchung.views import dan_create, dan_delete, dan_detail, dan_list, dan_update, dan_update_form, dan_update_model_form
+from tiemchung.views import (
+    dan_create,
+    dan_delete,
+    dan_detail,
+    dan_list,
+    dan_update,
+    dan_update_form,
+    dan_update_model_form,
+    DanListView
+)
 
 app_name = 'tiemchung'
 
 urlpatterns = [
-    path('', dan_list, name='dan-list'),
+    path('', DanListView.as_view(), name='dan-list'),
     path('create/', dan_create, name='dan-create'),
     path('detail/<pk>', dan_detail, name='dan-detail'),
     path('update/<pk>', dan_update, name='dan-update'),
