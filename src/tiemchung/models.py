@@ -1,5 +1,7 @@
+from django.shortcuts import redirect
 from django.utils import timezone
 from django.db import models
+from django.urls import reverse
 
 
 class Dan(models.Model):
@@ -11,6 +13,9 @@ class Dan(models.Model):
 
     def __str__(self):
         return self.cccd
+
+    def get_absolute_url(self, *args, **kwargs):
+        return reverse('tiemchung:dan-detail', kwargs={'pk': self.pk})
 
 
 class Tiem(models.Model):

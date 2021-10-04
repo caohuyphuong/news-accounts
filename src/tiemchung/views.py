@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.urls.base import reverse_lazy
 from django.views import View
 from django.views import generic
 from .models import Dan, Tiem
@@ -21,24 +22,28 @@ def dan_list(request):
     return render(request, 'tiemchung/list.html', {'object_list': object_list})
 
 
+class DanDetailView(generic.DetailView):
+    template_name = 'tiemchung/detail.html'
+    queryset = Dan.objects.all()
+
+
 def dan_detail(request, pk):
     object = Dan.objects.get(pk=pk)
     return render(request, 'tiemchung/detail.html', {'object': object})
 
 
+class DanCreateView(generic.CreateView):
+    template_name = 'tiemchung/create.html'
+    form_class = DanModelForm
+    queryset = Dan.objects.all()
+    success_url = reverse_lazy('tiemchung:dan-list')
+
+
 def dan_create(request):
-    # form = DanForm(request.POST or None)
-    if request.method == "POST":
-        form = DanModelForm(request.POST)
-        if form.is_valid():
-            # print(form.cleaned_data)
-            # cccd = form.cleaned_data['cccd']
-            # ten = form.cleaned_data['ten']
-            # dan = Dan.objects.create(cccd=cccd, ten=ten)
-            form.save()
-            return redirect('tiemchung:dan-list')
-    else:
-        form = DanModelForm()
+    form = DanModelForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('tiemchung:dan-list')
     return render(request, 'tiemchung/create.html', {'form': form})
 
 

@@ -1,5 +1,7 @@
 from django.urls import path
 from tiemchung.views import (
+    DanCreateView,
+    DanDetailView,
     dan_create,
     dan_delete,
     dan_detail,
@@ -14,8 +16,8 @@ app_name = 'tiemchung'
 
 urlpatterns = [
     path('', DanListView.as_view(), name='dan-list'),
-    path('create/', dan_create, name='dan-create'),
-    path('detail/<pk>', dan_detail, name='dan-detail'),
+    path('create/', DanCreateView.as_view(), name='dan-create'),
+    path('detail/<pk>', DanDetailView.as_view(), name='dan-detail'),
     path('update/<pk>', dan_update, name='dan-update'),
     path('update-form/<pk>', dan_update_form, name='dan-update-form'),
     path('update-model-form/<pk>', dan_update_model_form,
