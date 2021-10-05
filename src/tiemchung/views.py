@@ -47,6 +47,13 @@ def dan_create(request):
     return render(request, 'tiemchung/create.html', {'form': form})
 
 
+class DanUpdateView(generic.UpdateView):
+    template_name = 'tiemchung/update.html'
+    form_class = DanModelForm
+    queryset = Dan.objects.all()
+    success_url = reverse_lazy('tiemchung:dan-list')
+
+
 def dan_update(request, pk):
     dan = Dan.objects.get(pk=pk)
     if request.method == "POST":
@@ -78,6 +85,12 @@ def dan_update_model_form(request, pk):
         form.save()
         return redirect('tiemchung:dan-list')
     return render(request, 'tiemchung/update.html', {'form': form})
+
+
+class DanDeleteView(generic.DeleteView):
+    template_name = 'tiemchung/delete.html'
+    queryset = Dan.objects.all()
+    success_url = reverse_lazy('tiemchung:dan-list')
 
 
 def dan_delete(request, pk):
