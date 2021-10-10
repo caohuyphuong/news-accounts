@@ -15,3 +15,7 @@ class DanModelForm(forms.ModelForm):
     class Meta:
         model = Dan
         fields = ['cccd', 'ten']
+
+
+class SearchForm(forms.Form):
+    q = forms.CharField(label="Dan", max_length=50)

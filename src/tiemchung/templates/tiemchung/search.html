@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Dan Search{% endblock title %}
+{% block content %}
+<form>
+    {{ form }}
+    <button type="submit">Search</button>
+</form>
+<ul>
+    {% for dan in object_list %}
+        <li>{{dan.cccd}} - {{dan.cccd}}</li>
+    {% empty %}
+        <p>Not found</p>
+    {% endfor %}
+</ul>
+{% endblock content %}

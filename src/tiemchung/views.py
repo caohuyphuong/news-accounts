@@ -1,9 +1,9 @@
-from django.shortcuts import redirect, render
-from django.urls.base import reverse_lazy
-from django.views import View
-from django.views import generic
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls.base import reverse, reverse_lazy
+from django.views import generic, View
+from django.db.models import Q
 from .models import Dan, Tiem
-from .forms import DanForm, DanModelForm
+from .forms import DanForm, DanModelForm, SearchForm
 
 # CRUD = Create, Read, Update, Delete
 
@@ -17,19 +17,9 @@ class DanListView(generic.ListView):
     queryset = Dan.objects.all()
 
 
-def dan_list(request):
-    object_list = Dan.objects.all()
-    return render(request, 'tiemchung/list.html', {'object_list': object_list})
-
-
 class DanDetailView(generic.DetailView):
     template_name = 'tiemchung/detail.html'
     queryset = Dan.objects.all()
-
-
-def dan_detail(request, pk):
-    object = Dan.objects.get(pk=pk)
-    return render(request, 'tiemchung/detail.html', {'object': object})
 
 
 class DanCreateView(generic.CreateView):
@@ -39,52 +29,11 @@ class DanCreateView(generic.CreateView):
     success_url = reverse_lazy('tiemchung:dan-list')
 
 
-def dan_create(request):
-    form = DanModelForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('tiemchung:dan-list')
-    return render(request, 'tiemchung/create.html', {'form': form})
-
-
 class DanUpdateView(generic.UpdateView):
     template_name = 'tiemchung/update.html'
     form_class = DanModelForm
     queryset = Dan.objects.all()
     success_url = reverse_lazy('tiemchung:dan-list')
-
-
-def dan_update(request, pk):
-    dan = Dan.objects.get(pk=pk)
-    if request.method == "POST":
-        dan.cccd = request.POST.get('cccd')
-        dan.ten = request.POST.get('ten')
-        dan.save()
-        return redirect('tiemchung:dan-list')
-    return render(request, 'tiemchung/update.html', {'object': dan})
-
-
-def dan_update_form(request, pk):
-    dan = Dan.objects.get(pk=pk)
-    form = DanForm(request.POST or None, initial={
-        'cccd': dan.cccd,
-        'ten': dan.ten
-    })
-    if form.is_valid():
-        dan.cccd = form.cleaned_data.get('cccd')
-        dan.ten = form.cleaned_data.get('ten')
-        dan.save()
-        return redirect('tiemchung:dan-list')
-    return render(request, 'tiemchung/update.html', {'form': form})
-
-
-def dan_update_model_form(request, pk):
-    dan = Dan.objects.get(pk=pk)
-    form = DanModelForm(request.POST or None, instance=dan)
-    if form.is_valid():
-        form.save()
-        return redirect('tiemchung:dan-list')
-    return render(request, 'tiemchung/update.html', {'form': form})
 
 
 class DanDeleteView(generic.DeleteView):
@@ -93,7 +42,22 @@ class DanDeleteView(generic.DeleteView):
     success_url = reverse_lazy('tiemchung:dan-list')
 
 
-def dan_delete(request, pk):
-    dan = Dan.objects.get(pk=pk)
-    dan.delete()
-    return redirect('tiemchung:dan-list')
+class SearchView(View):
+    template_name = 'tiemchung/search.html'
+    form_class = SearchForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(request.GET or None)
+        q = request.GET.get('q')
+        qs = Dan.objects.all()
+        if q is not None:
+            qs = qs.filter(Q(cccd__icontains=q) | Q(ten__icontains=q))
+
+        context = {
+            'form': form,
+            'object_list': qs
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        pass
