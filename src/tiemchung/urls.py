@@ -6,7 +6,9 @@ from tiemchung.views import (
     DanDetailView,
     DanUpdateView,
     DanListView,
-    SearchView
+    SearchView,
+    dan_tiem,
+    tiem_create
 )
 
 app_name = 'tiemchung'
@@ -18,5 +20,7 @@ urlpatterns = [
     path('detail/<pk>', DanDetailView.as_view(), name='dan-detail'),
     path('update/<pk>', DanUpdateView.as_view(), name='dan-update'),
     path('delete/<pk>', DanDeleteView.as_view(), name='dan-delete'),
+    path('tiem/<pk>', dan_tiem, name='dan-tiem'),
+    path('tiem-create/<pk>', tiem_create, name='tiem-create'),
 
 ]

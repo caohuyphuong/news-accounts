@@ -1,15 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Dan Search{% endblock title %}
 {% block content %}
-<form>
-    {{ form }}
-    <button type="submit">Search</button>
-</form>
-<ul>
+<div class="mt-2">
+    <form>
+        {{ form }}
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">CCCD</th>
+      <th scope="col">Ten</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
     {% for dan in object_list %}
-        <li>{{dan.cccd}} - {{dan.cccd}}</li>
-    {% empty %}
-        <p>Not found</p>
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ dan.cccd }}</td>
+      <td>{{ dan.ten }}</td>
+      <td><a href="{% url 'tiemchung:dan-tiem' dan.pk %}">Tiem</a></td>
+    </tr>
     {% endfor %}
-</ul>
+  </tbody>
+</table>
 {% endblock content %}

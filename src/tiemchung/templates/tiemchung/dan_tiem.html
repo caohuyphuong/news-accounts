@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Dan detail{% endblock title %}
+{% block content %}
+<h1>Detail:</h1>
+<p>CCCD: {{ object.cccd }}</p>
+<p>Ten: {{ object.ten }}</p>
+<a class="btn btn-primary" href="{% url 'tiemchung:tiem-create' object.pk %}">Tiem</a>
+<hr>
+<ul>
+{% for tiem in object_list %}
+    <li>
+        Ngay tiem: {{ tiem.ngay_tiem }} - Noi tiem: {{ tiem.noi_tiem }}
+    </li>
+{% empty %}
+    <p>Chua tiem</p>
+{% endfor %}
+</ul>
+
+{% endblock content %}

@@ -3,7 +3,7 @@ from django.urls.base import reverse, reverse_lazy
 from django.views import generic, View
 from django.db.models import Q
 from .models import Dan, Tiem
-from .forms import DanForm, DanModelForm, SearchForm
+from .forms import DanForm, DanModelForm, SearchForm, TiemCreateModelForm
 
 # CRUD = Create, Read, Update, Delete
 
@@ -61,3 +61,28 @@ class SearchView(View):
 
     def post(self, request, *args, **kwargs):
         pass
+
+
+def dan_tiem(request, pk):  # tiem_list
+    dan = get_object_or_404(Dan, pk=pk)
+    qs = Tiem.objects.filter(dan=dan)
+    context = {
+        'object': dan,
+        'object_list': qs
+    }
+    return render(request, 'tiemchung/dan_tiem.html', context)
+
+
+def tiem_create(request, pk):  # tiem create
+    dan = get_object_or_404(Dan, pk=pk)
+    form = TiemCreateModelForm(request.POST or None)
+    if form.is_valid():
+        tiem = form.save(commit=False)
+        tiem.dan = dan
+        tiem.save()
+        return redirect('tiemchung:search')
+    context = {
+        'object': dan,
+        'form': form
+    }
+    return render(request, 'tiemchung/tiem_create.html', context)

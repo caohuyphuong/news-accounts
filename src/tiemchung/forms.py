@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import fields
-from .models import Dan
+from .models import Dan, Tiem
 
 
 class DanForm(forms.Form):
@@ -19,3 +19,9 @@ class DanModelForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     q = forms.CharField(label="Dan", max_length=50)
+
+
+class TiemCreateModelForm(forms.ModelForm):
+    class Meta:
+        model = Tiem
+        fields = ['noi_tiem']
