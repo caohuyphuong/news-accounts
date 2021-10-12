@@ -24,4 +24,4 @@ class SearchForm(forms.Form):
 class TiemCreateModelForm(forms.ModelForm):
     class Meta:
         model = Tiem
-        fields = ['noi_tiem']
+        fields = ['noi_tiem', 'vaccine']

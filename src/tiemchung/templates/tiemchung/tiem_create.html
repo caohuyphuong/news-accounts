@@ -2,10 +2,7 @@
 {% block title %}Dan create{% endblock title %}
 {% block content %}
 <h1>Tiem:</h1>
-<form method="POST">{% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit</button>
-</form>
+{% include 'snippets/form.html' with name="Tiem" %}
 
 {% endblock content %}
 

@@ -9,7 +9,7 @@
 <ul>
 {% for tiem in object_list %}
     <li>
-        Ngay tiem: {{ tiem.ngay_tiem }} - Noi tiem: {{ tiem.noi_tiem }}
+        Ngay tiem: {{ tiem.ngay_tiem }} - Noi tiem: {{ tiem.noi_tiem }} - Vaccine: {{ tiem.vaccine.title }}
     </li>
 {% empty %}
     <p>Chua tiem</p>
