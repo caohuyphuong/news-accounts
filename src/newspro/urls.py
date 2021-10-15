@@ -25,6 +25,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'),
     path('admin/', admin.site.urls),
     path('tiemchung/', include('tiemchung.urls', namespace='tiemchung')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 
     path('category_create', category_create),
     path('category_list', category_list),
