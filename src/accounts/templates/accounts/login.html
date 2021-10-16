@@ -5,5 +5,6 @@
 <div class="mt-2">
 {% include 'snippets/form.html' with name="Login" %}
 <p>Forgot password?<a href="{% url 'accounts:password_reset' %}">Reset your password</a></p>
+<p>Don't have account?<a href="{% url 'accounts:registration' %}">Registration</a></p>
 </div>
 {% endblock %}
