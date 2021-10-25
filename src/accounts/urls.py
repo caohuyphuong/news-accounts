@@ -5,10 +5,15 @@
 
 from django.contrib.auth import views
 from django.urls import path, reverse_lazy
-from .views import UserRegistrationView
+from .views import UserListView, UserRegistrationView, UserDetailView, UserUpdateView
 app_name = 'accounts'
 urlpatterns = [
     path('registration/', UserRegistrationView.as_view(), name='registration'),
+
+    path('user-list/', UserListView.as_view(), name='user_list'),
+    path('<int:pk>/user-detail/', UserDetailView.as_view(), name='user_detail'),
+    path('<int:pk>/user-update/', UserUpdateView.as_view(), name='user_update'),
+
     path('login/', views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', views.LogoutView.as_view(template_name='accounts/logged_out.html'), name='logout'),
 

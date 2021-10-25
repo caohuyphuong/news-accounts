@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls.base import reverse, reverse_lazy
 from django.views import generic, View
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from .models import Dan, Tiem
 from .forms import DanForm, DanModelForm, SearchForm, TiemCreateModelForm
 
@@ -12,37 +14,37 @@ class DashboardView(generic.TemplateView):
     template_name = 'dashboard.html'
 
 
-class DanListView(generic.ListView):
+class DanListView(LoginRequiredMixin, generic.ListView):
     template_name = 'tiemchung/list.html'
     queryset = Dan.objects.all()
 
 
-class DanDetailView(generic.DetailView):
+class DanDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'tiemchung/detail.html'
     queryset = Dan.objects.all()
 
 
-class DanCreateView(generic.CreateView):
+class DanCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'tiemchung/create.html'
     form_class = DanModelForm
     queryset = Dan.objects.all()
     success_url = reverse_lazy('tiemchung:dan-list')
 
 
-class DanUpdateView(generic.UpdateView):
+class DanUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'tiemchung/update.html'
     form_class = DanModelForm
     queryset = Dan.objects.all()
     success_url = reverse_lazy('tiemchung:dan-list')
 
 
-class DanDeleteView(generic.DeleteView):
+class DanDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'tiemchung/delete.html'
     queryset = Dan.objects.all()
     success_url = reverse_lazy('tiemchung:dan-list')
 
 
-class SearchView(View):
+class SearchView(LoginRequiredMixin, View):
     template_name = 'tiemchung/search.html'
     form_class = SearchForm
 
@@ -63,6 +65,7 @@ class SearchView(View):
         pass
 
 
+@login_required
 def dan_tiem(request, pk):  # tiem_list
     dan = get_object_or_404(Dan, pk=pk)
     qs = Tiem.objects.filter(dan=dan)
@@ -73,6 +76,7 @@ def dan_tiem(request, pk):  # tiem_list
     return render(request, 'tiemchung/dan_tiem.html', context)
 
 
+@login_required
 def tiem_create(request, pk):  # tiem create
     dan = get_object_or_404(Dan, pk=pk)
     form = TiemCreateModelForm(request.POST or None)
